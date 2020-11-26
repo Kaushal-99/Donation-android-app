@@ -13,15 +13,15 @@
         android:layout_height="wrap_content">
 
         <TextView
+            android:id="@+id/ngo_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/ngo_name"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
             android:text="Hiiiii"
-            android:textSize="25sp"
-            android:layout_marginLeft="10dp"
             android:textColor="@color/black"
 
-            android:layout_marginTop="10dp" />
+            android:textSize="25sp" />
 
 
         <ImageView
@@ -38,34 +38,33 @@
 
 
         <TextView
+            android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/post_image"
-            android:id="@+id/title"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
             android:text="title of donation"
             android:textColor="@color/black"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="5dp"
-            android:textSize="20sp"
-            />
+            android:textSize="20sp" />
 
         <TextView
+            android:id="@+id/requirement_type"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/title"
-            android:id="@+id/requirement"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="5dp"
             android:layout_marginRight="10dp"
             android:text="Requirements"
-            android:layout_marginLeft="5dp"
-            android:layout_marginTop="5dp"
             android:textColor="@color/black"
-            android:textSize="18sp"/>
+            android:textSize="18sp" />
 
         <Button
             android:id="@+id/post_request_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/requirement"
+            android:layout_below="@id/requirement_type"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="8dp"
             android:layout_marginRight="10dp"

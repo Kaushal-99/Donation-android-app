@@ -25,6 +25,7 @@ public class Requests_NGO extends Fragment {
         requestList.setLayoutManager(new LinearLayoutManager(getContext()));
         DB_handling db=new DB_handling(getContext());
         SQLiteDatabase db1=db.getReadableDatabase();
+        Log.i("NGO","Enyer ngo request page");
         ArrayList<String> donor_names=new ArrayList<>();
         ArrayList<String> subject=new ArrayList<>();
         ArrayList<String> items=new ArrayList<>();

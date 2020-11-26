@@ -26,6 +26,7 @@ import java.io.InputStream;
 import static android.app.Activity.RESULT_OK;
 import static android.content.Context.MODE_PRIVATE;
 
+
 public class Create_Post extends Fragment implements AdapterView.OnItemSelectedListener, View.OnClickListener {
     Spinner ngo_request;
     EditText subject_id;
@@ -93,15 +94,26 @@ public class Create_Post extends Fragment implements AdapterView.OnItemSelectedL
                 SharedPreferences prefs;
                 prefs= getContext().getSharedPreferences("MyPrefs", MODE_PRIVATE);
                 String user_email = prefs.getString("EMAIL", "");
-                if(requirement_type.equalsIgnoreCase("Choose Requirement Type")){
+                if(requirement_type.equalsIgnoreCase("")){
                     Toast.makeText(getContext(),"Choose a Requirement Type", Toast.LENGTH_SHORT).show();
+                }
+                else if(subject.equalsIgnoreCase("Choose Requirement Type")){
+                    Toast.makeText(getContext(),"Choose a Subject", Toast.LENGTH_SHORT).show();
+                }
+                else if(items.equalsIgnoreCase("")){
+                    Toast.makeText(getContext(),"Choose items", Toast.LENGTH_SHORT).show();
+                }
+                else if(image==null){
+                    Toast.makeText(getContext(),"Choose a Image", Toast.LENGTH_SHORT).show();
                 }
                 else{
                     DB_handling db=new DB_handling(getContext());
                     if(db.insertPost(subject,items,user_email,requirement_type,image)){
-                        Toast.makeText(getContext(),"Post created successfully",Toast.LENGTH_SHORT).show();
+
                         subject_id.setText("");
                         items_id.setText("");
+                        image=null;
+                        Toast.makeText(getContext(),"Post created ",Toast.LENGTH_SHORT).show();
                     }
                     else
                         Toast.makeText(getContext(),"Post not created ",Toast.LENGTH_SHORT).show();

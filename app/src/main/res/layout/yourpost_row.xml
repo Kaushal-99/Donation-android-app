@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/_4dp"
+    android:animateLayoutChanges="false"
+    android:animationCache="false"
+    card_view:cardBackgroundColor="@color/blues"
+    card_view:cardCornerRadius="12dp"
+    card_view:cardElevation="2dp"
+    card_view:cardMaxElevation="2dp"
+    card_view:contentPaddingBottom="5dp"
+    card_view:contentPaddingTop="5dp">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_view"
+        android:layout_width="350dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_margin="5dp"
+        android:background="@drawable/cardview_border"
+        android:elevation="0dp"
+        android:padding="@dimen/card_view_margin"
+        card_view:cardCornerRadius="20dp"
+        card_view:cardElevation="2dp"
+        card_view:cardMaxElevation="2dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/cardview_border"
+            android:padding="10dp">
+
+            <ImageView
+                android:id="@+id/post_image"
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_user" />
+
+            <TextView
+                android:id="@+id/requirement_type"
+                style="@style/TextAppearance.AppCompat.Subhead"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/post_image"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="8dp"
+                android:padding="@dimen/_8dp"
+                android:text="Requirement type"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/requirement"
+                style="@style/TextAppearance.AppCompat.Subhead"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/subject"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="@dimen/_8dp"
+                android:layout_marginTop="-8dp"
+                android:layout_marginBottom="12dp"
+                android:padding="@dimen/_8dp"
+                android:text="jhfebdjhbjfbvhfhdbjvbejdfhbReuiremment vmbdjchbjerbdjgedrujyvgeruygfirehifvhirehvikuehfikcuhvikrehdvheog vikrehfgkvhekfhgvo heifhgvrejfcgjvore ifjdgovi jefdvjbredfjxgbcvjfedbxvjndfjdhbcjvn djxhbcvj hbfxcjvb jfxbcvjbdxcjvb xdfjc "
+                android:textStyle="bold" />
+
+
+            <TextView
+                android:id="@+id/subject"
+                style="@style/TextAppearance.AppCompat.Subhead"
+                android:layout_width="343dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/requirement_type"
+                android:layout_marginStart="7dp"
+                android:layout_marginLeft="-322dp"
+                android:layout_marginTop="-4dp"
+                android:layout_marginEnd="55dp"
+                android:layout_marginRight="-243dp"
+                android:padding="@dimen/_8dp"
+                android:text="Subject vefdhngtvehfgdchjwegdfhcgerhjdgfjcergdfjher"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/tick"
+                android:layout_width="70dp"
+                android:layout_height="50dp"
+                android:layout_alignBottom="@+id/postCount"
+                android:layout_alignParentEnd="true"
+                android:layout_marginLeft="1dp"
+                android:layout_marginTop="29dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="-202dp"
+                android:layout_marginBottom="-3dp"
+                android:background="@color/design_default_color_background"
+                tools:srcCompat="@drawable/pending" />
+
+            <TextView
+                android:id="@+id/postCount"
+                style="@style/TextAppearance.AppCompat.Subhead"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/requirement"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="-8dp"
+                android:padding="@dimen/_8dp"
+                android:text="10 Responses"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/completeButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/postCount"
+                android:layout_marginStart="8dp"
+                android:backgroundTint="@android:color/holo_green_dark"
+                android:fontFamily="@font/baloo_bhai"
+                android:paddingStart="10dp"
+                android:paddingLeft="2dp"
+                android:paddingEnd="10dp"
+                android:paddingRight="2dp"
+                android:text="Complete Request"
+                android:textColor="@color/design_default_color_on_primary" />
+
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
+</androidx.cardview.widget.CardView>

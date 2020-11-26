@@ -2,6 +2,7 @@ package com.example.donation;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
+
 public class Feed extends Fragment {
     @Nullable
     @Override
@@ -27,8 +30,9 @@ public class Feed extends Fragment {
         ArrayList<String> subject=new ArrayList<>();
         ArrayList<String> requirement=new ArrayList<>();
         ArrayList<String> requirement_type=new ArrayList<>();
+        ArrayList<Integer> postId=new ArrayList<>();
         ArrayList<byte[]> images=new ArrayList<>();
-        Cursor res =  db1.rawQuery( "select * from post", null );
+        Cursor res =  db1.rawQuery( "select * from post where isCompleted!='Completed' ", null );
         res.moveToFirst();
         while(res.isAfterLast() == false){
             Cursor result =  db1.rawQuery( "select ngo_name from ngo where email_id="+"'"+res.getString(1)+"'", null );
@@ -37,10 +41,11 @@ public class Feed extends Fragment {
             subject.add(res.getString(2));
             requirement_type.add(res.getString(3));
             requirement.add(res.getString(4));
-            images.add(res.getBlob(5));
+            images.add(res.getBlob(6));
+            postId.add(res.getInt(0));
             res.moveToNext();
         }
-        posts.setAdapter(new PostAdapter(ngo_names,subject,requirement_type,requirement,images));
+        posts.setAdapter(new PostAdapter(ngo_names,subject,requirement_type,requirement,images,postId));
         return feed;
     }
 }

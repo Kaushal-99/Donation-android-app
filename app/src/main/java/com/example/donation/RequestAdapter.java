@@ -1,5 +1,7 @@
 package com.example.donation;
 
+import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,16 +17,20 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.RequestH
     ArrayList<String> titles;
     ArrayList<String> status;
     ArrayList<String> items_list;
-    public RequestAdapter(ArrayList<String> ngo_names,ArrayList<String> titles,ArrayList<String> status,ArrayList<String> items_list){
+    ArrayList<Integer> postId;
+    Context context;
+    public RequestAdapter(ArrayList<String> ngo_names,ArrayList<String> titles,ArrayList<String> status,ArrayList<String> items_list, ArrayList<Integer> postId){
         this.ngo_names=ngo_names;
         this.titles=titles;
         this.status=status;
         this.items_list=items_list;
+        this.postId=postId;
     }
     @NonNull
     @Override
     public RequestHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater=LayoutInflater.from(parent.getContext());
+        context=parent.getContext();
         View view=inflater.inflate(R.layout.request_item,parent,false);
         return new RequestHolder(view);
     }
@@ -37,7 +43,14 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.RequestH
         String items_data=items_list.get(position);
         holder.ngo_name.setText(ngoname);
         holder.title.setText(donation_title);
-        holder.status.setText(stat);
+        DB_handling db=new DB_handling(context);
+        if((postId.get(position)!=-1) && db.getPostIsCompleted(postId.get(position))){
+            holder.status.setText("This Request have already been completed");
+
+        }
+        else{
+            holder.status.setText(stat);
+        }
         holder.items.setText(items_data);
     }
 

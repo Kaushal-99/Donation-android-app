@@ -7,11 +7,12 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.strictmode.SqliteObjectLeakedViolation;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
 public class DB_handling extends SQLiteOpenHelper {
-    public static final int DATABASE_VERSION = 6;
+    public static final int DATABASE_VERSION = 13;
     public static final String DATABASE_NAME = "DoNation.db";
     public static final String NAME = "name";
     public static final String STATUS = "status";
@@ -19,8 +20,11 @@ public class DB_handling extends SQLiteOpenHelper {
     public static final String EMAIL = "email";
     public static final String AADHAR = "aadhar";
     public static final String PASSWORD = "password";
+    public static final String ADDRESS = "address";
+    public static final String PROFILEPIC = "profilepic";
     public static final String TYPE = "type";
     public static final String NGO_NAME = "ngo_name";
+    public static final String NGOPROFILEPIC = "ngoprofilepic";
     public static final String LOCATION  = "location";
     public static final String CATEGORY= "category";
     //public static final String PHONE = "phone";
@@ -106,8 +110,9 @@ public class DB_handling extends SQLiteOpenHelper {
                 + NAME + " TEXT, " +
                 PHONE+" TEXT," +
                 AADHAR+" TEXT," +
-                PASSWORD+" TEXT"+
-                ");";
+                PASSWORD+" TEXT,"+
+                 ADDRESS+" TEXT,"+
+                PROFILEPIC+" BLOB);";
         db.execSQL(query);
     }
     public static void createLoginTable(SQLiteDatabase db){
@@ -126,6 +131,7 @@ public class DB_handling extends SQLiteOpenHelper {
                 + SUBJECT+" TEXT,"
                 + REQUIREMENT_TYPE+" TEXT,"
                 + REQUIREMENT+" TEXT,"
+                + "isCompleted"+" TEXT DEFAULT 'pending',"
                 + SELECTED_IMAGE+" BLOB );";
         db.execSQL(query);
     }
@@ -159,11 +165,13 @@ public class DB_handling extends SQLiteOpenHelper {
     public void updatePostUserRequest(int post_id,String status){
         SQLiteDatabase db=getWritableDatabase();
         db.execSQL("UPDATE post_user_request SET status="+"'"+status+"'"+" WHERE post_id="+post_id );
+
     }
     public void updateUserRequest(int req_id,String status){
         SQLiteDatabase db=getWritableDatabase();
         db.execSQL("UPDATE user_request SET status="+"'"+status+"'"+" WHERE req_id="+req_id);
     }
+
     public void onCreate(SQLiteDatabase db) {
         createRegisterTable(db);
         createLoginTable(db);
@@ -179,8 +187,10 @@ public class DB_handling extends SQLiteOpenHelper {
                 + CATEGORY+" TEXT,"
                 + ABOUT+" TEXT,"
                 + PHONE+" TEXT,"
-                +PASSWORD+" TEXT"+");";
+                +PASSWORD+" TEXT,"
+                +NGOPROFILEPIC+" BLOB);";
         db.execSQL(query);
+        Log.i("ngo","database created");
         String[] NGOName={"Center For Social Security Action & Research (CSSAR)", "Mazi Sainik Shikshan Ani Swasthya Kalyan Sanstha",
                 "Annamrita Foundation","JK MAASS Foundation","Mobile Creches for Working Mothers' Children","National Society for Equal Opportunities for the Handicapped",
                 "Navjyoti India Foundation","Pahal Jan Sahyog Vikas Sansthan","Saath (Initiatives for Equity in Development)","Salaam Bombay Foundation"};
@@ -224,6 +234,78 @@ public class DB_handling extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS 'ngo'");
         onCreate(db);
     }
+
+    public boolean updateUserAddress(String email,String address){
+        SQLiteDatabase db=getWritableDatabase();
+        db.execSQL("UPDATE Register SET ADDRESS="+"'"+address+"'"+" WHERE EMAIL ="+"'"+email+"'");
+        return true;
+    }
+    public boolean updateUserPhoto(String email,byte[] image){
+        SQLiteDatabase db=getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(PROFILEPIC, image);
+        db.update("Register", cv, "EMAIL=" + "'"+email+"'", null);
+        return true;
+       // db.execSQL("UPDATE Register SET PROFILEPIC="+image+"WHERE EMAIL ="+"'"+email+"'");
+
+    }
+
+
+    public boolean updateNGOAddress(String email,String address){
+        SQLiteDatabase db=getWritableDatabase();
+        db.execSQL("UPDATE ngo SET LOCATION="+"'"+address+"'"+" WHERE EMAIL_ID ="+"'"+email+"'");
+        return true;
+    }
+    public boolean updateNgoPhoto(String email,byte[] image){
+        SQLiteDatabase db=getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(NGOPROFILEPIC, image);
+        db.update("ngo", cv, "EMAIL_ID=" + "'"+email+"'", null);
+        return true;
+        // db.execSQL("UPDATE Register SET PROFILEPIC="+image+"WHERE EMAIL ="+"'"+email+"'");
+
+    }
+
+    public String getPostCount(int postId){
+        //DB_handling db=new DB_handling(this);
+        SQLiteDatabase db1=this.getReadableDatabase();
+        Cursor c=db1.rawQuery("SELECT COUNT(post_id)\n" +
+                "FROM post_user_request WHERE post_id="+postId,null);
+        c.moveToFirst();
+        return String.valueOf(c.getInt(0));
+
+    }
+
+    public boolean updatePostStatus(int postId,String status){
+        SQLiteDatabase db=getWritableDatabase();
+        try {
+
+            db.execSQL("UPDATE post SET isCompleted="+"'"+status+"'"+" WHERE id ="+postId);
+            return true;
+        }
+        catch (Exception e){
+            return false;
+        }
+
+
+
+    }
+    public boolean getPostIsCompleted(int postId){
+        Cursor c;
+
+            //DB_handling db=new DB_handling(null);
+            SQLiteDatabase db1 = this.getReadableDatabase();
+            c = db1.rawQuery("SELECT isCompleted\n" +
+                    "FROM post WHERE id=" + postId, null);
+            c.moveToFirst();
+
+            return c.getString(0).equals("Completed");
+
+
+
+    }
+
+
 
 
 }

@@ -3,7 +3,7 @@ package com.example.donation;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.media.Image;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,11 +12,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
-
+import java.util.Arrays;
 
 
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostHolder> {
@@ -24,16 +24,18 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostHolder> {
     ArrayList<String> subject;
     ArrayList<String> requirement;
     ArrayList<String> requirement_type;
+    ArrayList<Integer> postId;
     ArrayList<byte[]> images;
     String ngoname,sub,requirements,req_type;
     byte img[];
 
-    public PostAdapter(ArrayList<String> ngo_names, ArrayList<String> subject, ArrayList<String> requirement_type,ArrayList<String> requirement,ArrayList<byte[]> images){
+    public PostAdapter(ArrayList<String> ngo_names, ArrayList<String> subject, ArrayList<String> requirement_type,ArrayList<String> requirement,ArrayList<byte[]> images,ArrayList<Integer> postId){
         this.ngo_names=ngo_names;
         this.subject=subject;
         this.requirement_type=requirement_type;
         this.requirement=requirement;
         this.images=images;
+        this.postId=postId;
     }
 
     @NonNull
@@ -45,7 +47,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull PostHolder holder, int position) {
+    public void onBindViewHolder(@NonNull PostHolder holder, final int position) {
         ngoname=ngo_names.get(position);
         sub=subject.get(position);
         requirements=requirement.get(position);
@@ -60,8 +62,16 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostHolder> {
         holder.ngo_name.setText(ngoname);
         holder.subject_tv.setText(sub);
         holder.requirements.setText(requirements);
-        Bitmap bmp = BitmapFactory.decodeByteArray(img, 0, img.length);
-        holder.image.setImageBitmap(bmp);
+        try{
+            Bitmap bmp = BitmapFactory.decodeByteArray(images.get(position), 0, images.get(position).length);
+            holder.image.setImageBitmap(bmp);
+            Log.i("feedimage", Arrays.toString(img));
+        }
+        catch (Exception e){
+            holder.image.setImageResource(R.drawable.profile_pic_dummy);
+        }
+
+
     }
 
     @Override
@@ -77,20 +87,21 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostHolder> {
             super(itemView);
             ngo_name=(TextView)itemView.findViewById(R.id.ngo_name);
             subject_tv=(TextView)itemView.findViewById(R.id.title);
-            requirements=(TextView)itemView.findViewById(R.id.requirement);
-            image=itemView.findViewById(R.id.post_image);
+            requirements=(TextView)itemView.findViewById(R.id.requirement_type);
+            image=(ImageView) itemView.findViewById(R.id.post_image);
             btn=itemView.findViewById(R.id.post_request_btn);
             btn.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     int i=getAdapterPosition();
                     Intent post_form=new Intent(v.getContext(),Post_Form.class);
                     post_form.putExtra("NGO Name",ngoname);
-                    post_form.putExtra("index",String.valueOf(i));
+                    post_form.putExtra("index",String.valueOf(postId.get(i)));
                     post_form.putExtra("subject",subject.get(i));
                     post_form.putExtra("req_type",requirement_type.get(i));
                     v.getContext().startActivity(post_form);
                 }
             });
+
         }
     }
 }
