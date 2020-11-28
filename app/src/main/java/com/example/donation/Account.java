@@ -120,13 +120,16 @@ public class Account extends Fragment {
     }
 
     public void initializeAllButtons(){
+
         locationSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked){
+                    Log.i("location","ON");
                     Toast.makeText(getContext(),"On",Toast.LENGTH_SHORT).show();
-                    userLocationPermission=true;
-                    setLocation(userLocationPermission);
+                    setLocation(true);
+                    locationSwitch.setChecked(false);
+
 
                 }
                 else{
@@ -150,7 +153,7 @@ public class Account extends Fragment {
                 builder.setMessage("Do you want to use camera ?");
 
                 // Set Alert Title
-                builder.setTitle("Alert !");
+                builder.setTitle("Camera Permission needed !");
 
                 // Set Cancelable false
                 // for when the user clicks on the outside
@@ -246,10 +249,10 @@ public class Account extends Fragment {
                 .Builder(getContext());
 
         // Set the message show for the Alert time
-        builder.setMessage("Do you want to exit ?");
+        builder.setMessage("Select the option");
 
         // Set Alert Title
-        builder.setTitle("Alert !");
+        builder.setTitle("");
 
         // Set Cancelable false
         // for when the user clicks on the outside
@@ -262,7 +265,7 @@ public class Account extends Fragment {
 
         builder
                 .setPositiveButton(
-                        "gallery",
+                        "Gallery",
                         new DialogInterface
                                 .OnClickListener() {
 
@@ -290,7 +293,7 @@ public class Account extends Fragment {
         // of DialogInterface interface.
         builder
                 .setNegativeButton(
-                        "camera",
+                        "Camera",
                         new DialogInterface
                                 .OnClickListener() {
 
@@ -312,13 +315,73 @@ public class Account extends Fragment {
 
     }
 
+    public void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) {
+        super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
+
+        Log.i("requestcode",String.valueOf(requestCode));
+        switch(requestCode) {
+            case SELECT_PHOTO:
+                if(resultCode == RESULT_OK){
+                    Log.i("camera","gallery module entered");
+                    Uri selectedImage = imageReturnedIntent.getData();
+                    InputStream imageStream = null;
+                    try {
+                        imageStream = getContext().getContentResolver().openInputStream(selectedImage);
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                    Bitmap yourSelectedImage = BitmapFactory.decodeStream(imageStream);
+                    imageView.setImageBitmap(yourSelectedImage);
+                    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+                    yourSelectedImage.compress(Bitmap.CompressFormat.PNG, 0, outputStream);
+                    image=outputStream.toByteArray();
+                    if(db.updateUserPhoto(user_email,image)){
+                        Toast.makeText(getContext(),"imageupdated",Toast.LENGTH_SHORT).show();
+                    }
+                }
+                break;
+            case CAMERA_REQUEST:
+                if(resultCode == RESULT_OK){
+                    Log.i("camera","camera module entered");
+                    //Bitmap photo = (Bitmap) data.getExtras().get("data");
+                    /**Uri selectedImage = imageReturnedIntent.getData();
+                     InputStream imageStream = null;
+                     try {
+                     imageStream = getContext().getContentResolver().openInputStream(selectedImage);
+                     } catch (FileNotFoundException e) {
+                     e.printStackTrace();
+                     }**/
+                    Bitmap yourSelectedImage = (Bitmap) imageReturnedIntent.getExtras().get("data");
+                    imageView.setImageBitmap(yourSelectedImage);
+                    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+                    yourSelectedImage.compress(Bitmap.CompressFormat.PNG, 0, outputStream);
+                    image=outputStream.toByteArray();
+                    if(db.updateUserPhoto(user_email,image)){
+                        Toast.makeText(getContext(),"imageupdated",Toast.LENGTH_SHORT).show();
+                    }
+                }
+                break;
+
+        }
+
+
+
+    }
+
+
+
+
+
+
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
         if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
+            Log.i("setRequest","entered");
             startListening();
+
 
         }
 
@@ -328,9 +391,12 @@ public class Account extends Fragment {
 
     public void startListening() {
 
+
+
         if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
 
             locationManager = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
+            Log.i("startList","entered");
 
         }
 
@@ -387,7 +453,9 @@ public class Account extends Fragment {
 
             }
             Log.i("PlaceInfo", address);
+
             userAddress.setText(address);
+
 
 
         } catch (IOException e) {
@@ -399,69 +467,23 @@ public class Account extends Fragment {
     }
 
 
-    public void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) {
-        super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
-
-        Log.i("requestcode",String.valueOf(requestCode));
-        switch(requestCode) {
-            case SELECT_PHOTO:
-                if(resultCode == RESULT_OK){
-                    Log.i("camera","gallery module entered");
-                    Uri selectedImage = imageReturnedIntent.getData();
-                    InputStream imageStream = null;
-                    try {
-                        imageStream = getContext().getContentResolver().openInputStream(selectedImage);
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
-                    }
-                    Bitmap yourSelectedImage = BitmapFactory.decodeStream(imageStream);
-                    imageView.setImageBitmap(yourSelectedImage);
-                    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-                    yourSelectedImage.compress(Bitmap.CompressFormat.PNG, 0, outputStream);
-                    image=outputStream.toByteArray();
-                }
-                break;
-            case CAMERA_REQUEST:
-                if(resultCode == RESULT_OK){
-                    Log.i("camera","camera module entered");
-                    //Bitmap photo = (Bitmap) data.getExtras().get("data");
-                    /**Uri selectedImage = imageReturnedIntent.getData();
-                    InputStream imageStream = null;
-                    try {
-                        imageStream = getContext().getContentResolver().openInputStream(selectedImage);
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
-                    }**/
-                    Bitmap yourSelectedImage = (Bitmap) imageReturnedIntent.getExtras().get("data");
-                    imageView.setImageBitmap(yourSelectedImage);
-                    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-                    yourSelectedImage.compress(Bitmap.CompressFormat.PNG, 0, outputStream);
-                    image=outputStream.toByteArray();
-                }
-                break;
-
-        }
-        if(db.updateUserPhoto(user_email,image)){
-            Toast.makeText(getContext(),"imageupdated",Toast.LENGTH_SHORT).show();
-        }
-
-    }
 
 
-    public void setLocation(boolean userLocationPermission){
+
+    public void setLocation(final boolean userLocationPermission){
+        Log.i("setlocation","entered");
         if(userLocationPermission){
+
             locationManager = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
             locationListener = new LocationListener() {
                 @Override
                 public void onLocationChanged(Location location) {
 
-                    updateLocationInfo(location);
-
+                    //updateLocationInfo(location);
                 }
 
                 @Override
                 public void onStatusChanged(String s, int i, Bundle bundle) {
-
                 }
 
                 @Override
@@ -482,12 +504,13 @@ public class Account extends Fragment {
 
             } else {
 
-                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
+                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 0, locationListener);
 
                 Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 
                 if (location != null) {
 
+                    Log.i("setlocation","Location not null");
                     updateLocationInfo(location);
 
                 }

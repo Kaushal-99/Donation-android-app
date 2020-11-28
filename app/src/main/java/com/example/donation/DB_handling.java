@@ -287,9 +287,9 @@ public class DB_handling extends SQLiteOpenHelper {
             return false;
         }
 
-
-
     }
+
+
     public boolean getPostIsCompleted(int postId){
         Cursor c;
 

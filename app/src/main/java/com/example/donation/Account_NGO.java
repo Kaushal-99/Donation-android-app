@@ -133,8 +133,9 @@ public class Account_NGO extends Fragment {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked){
                     Toast.makeText(getContext(),"On",Toast.LENGTH_SHORT).show();
-                    userLocationPermission=true;
-                    setLocation(userLocationPermission);
+
+                    setLocation(true);
+                    locationSwitch.setChecked(false);
 
                 }
                 else{
@@ -158,7 +159,7 @@ public class Account_NGO extends Fragment {
                 builder.setMessage("Do you want to use camera ?");
 
                 // Set Alert Title
-                builder.setTitle("Alert !");
+                builder.setTitle("Camera Permission needed !");
 
                 // Set Cancelable false
                 // for when the user clicks on the outside
@@ -208,7 +209,7 @@ public class Account_NGO extends Fragment {
 
                                         // If user click no
                                         // then dialog box is canceled.
-                                        userLocationPermission=false;
+
                                         dialog.cancel();
                                     }
                                 });
@@ -267,10 +268,10 @@ public class Account_NGO extends Fragment {
                 .Builder(getContext());
 
         // Set the message show for the Alert time
-        builder.setMessage("Do you want to exit ?");
+        builder.setMessage("Select the option");
 
         // Set Alert Title
-        builder.setTitle("Alert !");
+        builder.setTitle("");
 
         // Set Cancelable false
         // for when the user clicks on the outside
@@ -283,7 +284,7 @@ public class Account_NGO extends Fragment {
 
         builder
                 .setPositiveButton(
-                        "gallery",
+                        "Gallery",
                         new DialogInterface
                                 .OnClickListener() {
 
@@ -311,7 +312,7 @@ public class Account_NGO extends Fragment {
         // of DialogInterface interface.
         builder
                 .setNegativeButton(
-                        "camera",
+                        "Camera",
                         new DialogInterface
                                 .OnClickListener() {
 
@@ -440,6 +441,9 @@ public class Account_NGO extends Fragment {
                     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
                     yourSelectedImage.compress(Bitmap.CompressFormat.PNG, 0, outputStream);
                     image=outputStream.toByteArray();
+                    if(db.updateNgoPhoto(user_email,image)){
+                        Toast.makeText(getContext(),"imageupdated",Toast.LENGTH_SHORT).show();
+                    }
                 }
                 break;
             case CAMERA_REQUEST:
@@ -458,13 +462,14 @@ public class Account_NGO extends Fragment {
                     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
                     yourSelectedImage.compress(Bitmap.CompressFormat.PNG, 0, outputStream);
                     image=outputStream.toByteArray();
+                    if(db.updateNgoPhoto(user_email,image)){
+                        Toast.makeText(getContext(),"imageupdated",Toast.LENGTH_SHORT).show();
+                    }
                 }
                 break;
 
         }
-        if(db.updateNgoPhoto(user_email,image)){
-            Toast.makeText(getContext(),"imageupdated",Toast.LENGTH_SHORT).show();
-        }
+
 
     }
 
@@ -476,7 +481,7 @@ public class Account_NGO extends Fragment {
                 @Override
                 public void onLocationChanged(Location location) {
 
-                    updateLocationInfo(location);
+                    //updateLocationInfo(location);
 
                 }
 
