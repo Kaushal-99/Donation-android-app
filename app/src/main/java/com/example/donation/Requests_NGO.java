@@ -61,7 +61,8 @@ public class Requests_NGO extends Fragment {
             donor_email.add(result.getString(4));
             result.moveToNext();
         }
-        requestList.setAdapter(new RequestNGOAdapter(donor_names,subject,items,post,user_req,donor_email));
+        RequestNGOAdapter madapter=new RequestNGOAdapter(donor_names,subject,items,post,user_req,donor_email);
+        requestList.setAdapter(madapter);
         return requests_ngo_obj;
     }
 }

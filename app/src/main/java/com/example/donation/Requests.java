@@ -18,8 +18,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashSet;
+
 import android.content.SharedPreferences;
 public class Requests extends Fragment {
+
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.requests,container,false);
         RecyclerView requestList=(RecyclerView)view.findViewById(R.id.requests);
@@ -31,6 +36,7 @@ public class Requests extends Fragment {
         ArrayList<String> titles=new ArrayList<>();
         ArrayList<String> status=new ArrayList<>();
         ArrayList<String> items_list=new ArrayList<>();
+        ArrayList<String[]> allval=new ArrayList<String[]>();
         ArrayList<Integer> postId=new ArrayList<>();
         SharedPreferences sharedPreferences;
         sharedPreferences = getContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
@@ -44,6 +50,7 @@ public class Requests extends Fragment {
             ngo_names.add(res.getString(4));
             status.add(res.getString(6));
             items_list.add(res.getString(5));
+            allval.add(new String[]{res.getString(2), res.getString(4), res.getString(6), res.getString(5),res.getString(7)});
             res.moveToNext();
         }
         Cursor result =  db1.rawQuery( "select * from post_user_request where donor_email="+user_email_to_compare, null );
@@ -54,9 +61,18 @@ public class Requests extends Fragment {
             ngo_names.add(result.getString(2));
             status.add(result.getString(7));
             items_list.add(result.getString(5));
+            allval.add(new String[]{result.getString(4), result.getString(2), result.getString(7), result.getString(5),result.getString(1),result.getString(8)});
             result.moveToNext();
         }
-        requestList.setAdapter(new RequestAdapter(ngo_names,titles,status,items_list,postId));
+        Collections.sort(allval, new DateComparator());
+        Collections.reverse(allval);
+        requestList.setAdapter(new RequestAdapter(ngo_names,titles,status,items_list,postId,allval));
         return view;
+    }
+}
+class DateComparator implements Comparator<String []>{
+    @Override
+    public int compare(String[] o1, String[] o2) {
+        return o1[o1.length-1].compareTo(o2[o2.length-1]);
     }
 }
