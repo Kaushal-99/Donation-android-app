@@ -46,8 +46,8 @@ public class RequestNGOAdapter extends RecyclerView.Adapter<RequestNGOAdapter.Re
         return new RequestNGOHolder(view);
     }
 
-    @SuppressLint("WrongConstant")
     @Override
+    @SuppressLint("WrongConstant")
     public void onBindViewHolder(@NonNull RequestNGOHolder holder, final int position) {
         String donorname=donor_names.get(position);
         String donation_title=subject.get(position);

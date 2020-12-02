@@ -66,6 +66,7 @@ public class Account extends Fragment {
     SharedPreferences sharedPreferences;
 
 
+
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View account=inflater.inflate(R.layout.account,container,false);
         userAddress=account.findViewById(R.id.userAddress);
@@ -77,7 +78,6 @@ public class Account extends Fragment {
         locationSwitch=(Switch) account.findViewById(R.id.locationSwitchId);
         update=(Button) account.findViewById(R.id.updateButton);
         logout=(Button) account.findViewById(R.id.logoutButton);
-
 
 
         sharedPreferences = getContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
@@ -128,7 +128,7 @@ public class Account extends Fragment {
                     Log.i("location","ON");
                     Toast.makeText(getContext(),"On",Toast.LENGTH_SHORT).show();
                     setLocation(true);
-                    locationSwitch.setChecked(false);
+                    //locationSwitch.setChecked(false);
 
 
                 }
@@ -210,7 +210,6 @@ public class Account extends Fragment {
 
                 // Create the Alert dialog
                 AlertDialog alertDialog = builder.create();
-
                 // Show the Alert Dialog box
                 alertDialog.show();
 
@@ -243,6 +242,7 @@ public class Account extends Fragment {
                                   }
         );
     }
+
     public void selectphoto(){
         AlertDialog.Builder builder
                 = new AlertDialog
@@ -273,18 +273,9 @@ public class Account extends Fragment {
                             public void onClick(DialogInterface dialog,
                                                 int which)
                             {
-
-                                // When the user click yes button
-                                // then app will close
-
-                                //Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-                                //startActivityForResult(cameraIntent, CAMERA_REQUEST);
-                                //onBackPressed();
                                 Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
                                 photoPickerIntent.setType("image/*");
                                 startActivityForResult(photoPickerIntent, SELECT_PHOTO);
-
-
                             }
                         });
 
@@ -301,9 +292,15 @@ public class Account extends Fragment {
                             public void onClick(DialogInterface dialog,
                                                 int which)
                             {
+                                try {
+                                    Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                                    startActivityForResult(cameraIntent, CAMERA_REQUEST);
+                                }
+                                catch (Exception e){
+                                    e.printStackTrace();;
+                                }
 
-                                Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-                                startActivityForResult(cameraIntent, CAMERA_REQUEST);
+
                             }
                         });
 
@@ -315,8 +312,13 @@ public class Account extends Fragment {
 
     }
 
+
+
+
+
+
     public void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) {
-        super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
+        //super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
 
         Log.i("requestcode",String.valueOf(requestCode));
         switch(requestCode) {
@@ -405,12 +407,8 @@ public class Account extends Fragment {
     public  void  updateLocationInfo(Location location) {
 
         int locationInfo = Log.i("LocationInfo", location.toString());
-
-
         Geocoder geocoder = new Geocoder(getContext(), Locale.getDefault());
-
         try {
-
 
 
             List<Address> listAddresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
@@ -420,43 +418,29 @@ public class Account extends Fragment {
 
 
                 address = "";
-
                 if (listAddresses.get(0).getSubThoroughfare() != null) {
 
                     address += listAddresses.get(0).getSubThoroughfare() + " ,";
 
                 }
-
                 if (listAddresses.get(0).getThoroughfare() != null) {
-
                     address += listAddresses.get(0).getThoroughfare() + ",";
-
                 }
-
                 if (listAddresses.get(0).getLocality() != null) {
-
                     address += listAddresses.get(0).getLocality() + ",";
-
                 }
-
                 if (listAddresses.get(0).getPostalCode() != null) {
 
                     address += listAddresses.get(0).getPostalCode() + ",";
 
                 }
-
                 if (listAddresses.get(0).getCountryName() != null) {
-
                     address += listAddresses.get(0).getCountryName() + "";
 
                 }
-
             }
             Log.i("PlaceInfo", address);
-
             userAddress.setText(address);
-
-
 
         } catch (IOException e) {
 
@@ -473,27 +457,22 @@ public class Account extends Fragment {
     public void setLocation(final boolean userLocationPermission){
         Log.i("setlocation","entered");
         if(userLocationPermission){
-
+            Log.i("userlocationper","true");
             locationManager = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
             locationListener = new LocationListener() {
                 @Override
                 public void onLocationChanged(Location location) {
-
+                    Log.i("setlocation","Location  null");
                     //updateLocationInfo(location);
                 }
-
                 @Override
                 public void onStatusChanged(String s, int i, Bundle bundle) {
                 }
-
                 @Override
                 public void onProviderEnabled(String s) {
-
                 }
-
                 @Override
                 public void onProviderDisabled(String s) {
-
                 }
             };
 
@@ -504,15 +483,23 @@ public class Account extends Fragment {
 
             } else {
 
-                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 0, locationListener);
+                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 5, locationListener);
 
-                Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-
+                Location location = locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
+                try {
+                    updateLocationInfo(location);
+                }
+                catch (Exception e){
+                    e.printStackTrace();
+                }
                 if (location != null) {
 
                     Log.i("setlocation","Location not null");
                     updateLocationInfo(location);
 
+                }
+                else {
+                    Log.i("setlocation","Location is null");
                 }
 
             }
@@ -520,7 +507,7 @@ public class Account extends Fragment {
         else{
             address="";
         }
-        userAddress.setText(address);
+        //userAddress.setText(address);
     }
 
 

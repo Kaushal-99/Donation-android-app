@@ -133,7 +133,7 @@ public class Account_NGO extends Fragment {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked){
                     Toast.makeText(getContext(),"On",Toast.LENGTH_SHORT).show();
-
+                    Log.i("LOCATIONbutton","preseddddddddddddd");
                     setLocation(true);
                     locationSwitch.setChecked(false);
 
@@ -299,9 +299,15 @@ public class Account_NGO extends Fragment {
                                 //Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
                                 //startActivityForResult(cameraIntent, CAMERA_REQUEST);
                                 //onBackPressed();
-                                Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
-                                photoPickerIntent.setType("image/*");
-                                startActivityForResult(photoPickerIntent, SELECT_PHOTO);
+                                try{
+                                    Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+                                    photoPickerIntent.setType("image/*");
+                                    startActivityForResult(photoPickerIntent, SELECT_PHOTO);
+                                }
+                                catch(Exception e){
+                                    e.printStackTrace();
+                                }
+
 
 
                             }
@@ -320,9 +326,14 @@ public class Account_NGO extends Fragment {
                             public void onClick(DialogInterface dialog,
                                                 int which)
                             {
+                                try{
 
                                 Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
                                 startActivityForResult(cameraIntent, CAMERA_REQUEST);
+                                }
+                                catch(Exception e){
+                                    e.printStackTrace();
+                                }
                             }
                         });
 
@@ -337,11 +348,8 @@ public class Account_NGO extends Fragment {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-
         if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
             startListening();
-
         }
 
     }
@@ -422,7 +430,7 @@ public class Account_NGO extends Fragment {
 
 
     public void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) {
-        super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
+       // super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
 
         Log.i("requestcode",String.valueOf(requestCode));
         switch(requestCode) {
@@ -475,6 +483,7 @@ public class Account_NGO extends Fragment {
 
 
     public void setLocation(boolean userLocationPermission){
+
         if(userLocationPermission){
             locationManager = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
             locationListener = new LocationListener() {
