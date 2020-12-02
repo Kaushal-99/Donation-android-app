@@ -1,5 +1,4 @@
 package com.example.donation;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -12,14 +11,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import java.util.ArrayList;
-
-
-
 public class RequestNGOAdapter extends RecyclerView.Adapter<RequestNGOAdapter.RequestNGOHolder>{
     ArrayList<String> donor_names;
     ArrayList<String> subject;
@@ -54,7 +48,7 @@ public class RequestNGOAdapter extends RecyclerView.Adapter<RequestNGOAdapter.Re
         String items_donate=items.get(position);
         //int postid=Integer.parseInt(post.get(position));
 
-        if(post.get(position)==" "){
+        if(post.get(position).equals(" ")){
             holder.subject.setText(donation_title);
             holder.acc.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -62,6 +56,11 @@ public class RequestNGOAdapter extends RecyclerView.Adapter<RequestNGOAdapter.Re
                     DB_handling db=new DB_handling(view.getContext());
                     db.updateUserRequest(Integer.parseInt(user_req.get(position)),"accepted");
                     Toast.makeText(view.getContext(),"Request accepted",Toast.LENGTH_SHORT).show();
+                    donor_names.remove(position);
+                    subject.remove(position);
+                    items.remove(position);
+                    notifyItemRemoved(position);
+                    notifyItemRangeChanged(position,donor_names.size());
                 }
             });
             holder.rej.setOnClickListener(new View.OnClickListener() {
@@ -70,6 +69,11 @@ public class RequestNGOAdapter extends RecyclerView.Adapter<RequestNGOAdapter.Re
                     DB_handling db=new DB_handling(view.getContext());
                     db.updateUserRequest(Integer.parseInt(user_req.get(position)),"rejected");
                     Toast.makeText(view.getContext(),"Request rejected",Toast.LENGTH_SHORT).show();
+                    donor_names.remove(position);
+                    subject.remove(position);
+                    items.remove(position);
+                    notifyItemRemoved(position);
+                    notifyItemRangeChanged(position,donor_names.size());
                 }
             });
         }
@@ -88,7 +92,7 @@ public class RequestNGOAdapter extends RecyclerView.Adapter<RequestNGOAdapter.Re
             });
             DB_handling db=new DB_handling(context);
            // Log.i("postID",String.valueOf(db.getPostIsCompleted(Integer.parseInt(post.get(position)))));
-            if(db.getPostIsCompleted(Integer.parseInt(post.get(position)))){
+            if(db.getPostIsCompleted(Integer.parseInt(post.get(position))) ){
                 Log.i("position","entered complete post");
                 holder.acc.setVisibility(View.GONE);
                 holder.rej.setVisibility(View.GONE);
@@ -104,6 +108,11 @@ public class RequestNGOAdapter extends RecyclerView.Adapter<RequestNGOAdapter.Re
                         if(db.updatePostStatus(Integer.parseInt(post.get(position)),"Work in Progress")){
                             Toast.makeText(view.getContext(),"workinprogress",Toast.LENGTH_SHORT).show();
                         }
+                        donor_names.remove(position);
+                        subject.remove(position);
+                        items.remove(position);
+                        notifyItemRemoved(position);
+                        notifyItemRangeChanged(position,donor_names.size());
                         Toast.makeText(view.getContext(),"Request accepted",Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -112,6 +121,11 @@ public class RequestNGOAdapter extends RecyclerView.Adapter<RequestNGOAdapter.Re
                     public void onClick(View view) {
                         DB_handling db=new DB_handling(view.getContext());
                         db.updatePostUserRequest(Integer.parseInt(post.get(position)),"rejected");
+                        donor_names.remove(position);
+                        subject.remove(position);
+                        items.remove(position);
+                        notifyItemRemoved(position);
+                        notifyItemRangeChanged(position,donor_names.size());
                         Toast.makeText(view.getContext(),"Request rejeted",Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -123,7 +137,7 @@ public class RequestNGOAdapter extends RecyclerView.Adapter<RequestNGOAdapter.Re
 
     @Override
     public int getItemCount() {
-        return user_req.size();
+        return donor_names.size();
     }
 
     public class RequestNGOHolder extends RecyclerView.ViewHolder{

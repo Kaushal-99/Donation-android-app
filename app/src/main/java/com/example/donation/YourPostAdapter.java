@@ -13,7 +13,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -70,6 +69,7 @@ public class YourPostAdapter  extends RecyclerView.Adapter<YourPostAdapter.YourP
                 if(db.updatePostStatus(postIdArray.get(position),"Completed") ){
                     holder.statusImage.setImageResource(R.drawable.greentick);
                     holder.complete.setVisibility(View.GONE);
+
                     Toast.makeText(view.getContext(),"Post Completed",Toast.LENGTH_SHORT).show();
                 }
 

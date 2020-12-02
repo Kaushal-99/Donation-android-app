@@ -19,12 +19,14 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.RequestH
     ArrayList<String> items_list;
     ArrayList<Integer> postId;
     Context context;
-    public RequestAdapter(ArrayList<String> ngo_names,ArrayList<String> titles,ArrayList<String> status,ArrayList<String> items_list, ArrayList<Integer> postId){
+    ArrayList<String[]> allval;
+    public RequestAdapter(ArrayList<String> ngo_names,ArrayList<String> titles,ArrayList<String> status,ArrayList<String> items_list, ArrayList<Integer> postId,ArrayList<String []>allval){
         this.ngo_names=ngo_names;
         this.titles=titles;
         this.status=status;
         this.items_list=items_list;
         this.postId=postId;
+        this.allval=allval;
     }
     @NonNull
     @Override
@@ -37,16 +39,16 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.RequestH
 
     @Override
     public void onBindViewHolder(@NonNull RequestHolder holder, int position) {
-        String ngoname=ngo_names.get(position);
-        String donation_title=titles.get(position);
-        String stat=status.get(position);
-        String items_data=items_list.get(position);
+        String ngoname=allval.get(position)[1];
+        String donation_title=allval.get(position)[0];
+        String stat=allval.get(position)[2];
+        String items_data=allval.get(position)[3];
         holder.ngo_name.setText(ngoname);
         holder.title.setText(donation_title);
         DB_handling db=new DB_handling(context);
-        if((postId.get(position)!=-1) && db.getPostIsCompleted(postId.get(position))){
-            holder.status.setText("This Request have already been completed");
 
+        if(allval.get(position).length>5 && !stat.equalsIgnoreCase("accepted")&&/*(postId.get(position)!=-1)*/ db.getPostIsCompleted(Integer.parseInt(allval.get(position)[4]))){
+            holder.status.setText("This Request have already been completed");
         }
         else{
             holder.status.setText(stat);
@@ -56,7 +58,7 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.RequestH
 
     @Override
     public int getItemCount() {
-        return ngo_names.size();
+        return allval.size();
     }
 
     public class RequestHolder extends RecyclerView.ViewHolder{

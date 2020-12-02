@@ -12,7 +12,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 public class DB_handling extends SQLiteOpenHelper {
-    public static final int DATABASE_VERSION = 13;
+    public static final int DATABASE_VERSION = 16;
     public static final String DATABASE_NAME = "DoNation.db";
     public static final String NAME = "name";
     public static final String STATUS = "status";
@@ -27,6 +27,7 @@ public class DB_handling extends SQLiteOpenHelper {
     public static final String NGOPROFILEPIC = "ngoprofilepic";
     public static final String LOCATION  = "location";
     public static final String CATEGORY= "category";
+    public static final String TIME="timestamp";
     //public static final String PHONE = "phone";
     public static final String EMAIL_ID = "email_id";
     public static final String ABOUT="about";
@@ -81,6 +82,9 @@ public class DB_handling extends SQLiteOpenHelper {
         values_user_req.put(NGO_NAME,ngo_name);
         values_user_req.put(ITEMS,items);
         values_user_req.put(STATUS,"pending");
+        Cursor res=db1.rawQuery("Select datetime('now','localtime') as time",null);
+        res.moveToFirst();
+        values_user_req.put(TIME,res.getString(0));
         if(db1.insert("user_request", null, values_user_req)!=0){
             return true;
         }
@@ -97,6 +101,9 @@ public class DB_handling extends SQLiteOpenHelper {
         values_user_req.put(ITEMS,items);
         values_user_req.put(DONOR_EMAIL,user_email);
         values_user_req.put(STATUS,"pending");
+        Cursor res=db1.rawQuery("Select datetime('now','localtime') as time",null);
+        res.moveToFirst();
+        values_user_req.put(TIME,res.getString(0));
         if(db1.insert("post_user_request", null, values_user_req)!=0){
             return true;
         }
@@ -146,7 +153,8 @@ public class DB_handling extends SQLiteOpenHelper {
                 + DONOR_EMAIL+" TEXT,"
                 + NGO_NAME+" TEXT,"
                 + ITEMS+" TEXT,"
-                + STATUS+" TEXT );";
+                + STATUS+" TEXT,"
+                + TIME+" TEXT );";
         db.execSQL(query);
     }
     public static void createPostUserRequestTable(SQLiteDatabase db){
@@ -159,7 +167,8 @@ public class DB_handling extends SQLiteOpenHelper {
                 + SUBJECT +" TEXT,"
                 + ITEMS+" TEXT,"
                 + DONOR_EMAIL+" TEXT,"
-                + STATUS+" TEXT );";
+                +STATUS +" TEXT,"
+                + TIME+" TEXT );";
         db.execSQL(query);
     }
     public void updatePostUserRequest(int post_id,String status){
