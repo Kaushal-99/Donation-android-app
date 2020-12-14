@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/light_white"
+    android:orientation="vertical"
+    tools:context=".LoginActivity">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-black"
+        android:gravity="center"
+        android:text="DoNation"
+        android:textColor="@color/blues"
+        android:textSize="50sp" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginTop="50dp"
+        app:srcCompat="@drawable/ic_baseline_face_24"
+        tools:ignore="VectorDrawableCompat" />
+
+    <TextView
+        android:id="@+id/login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:fontFamily="sans-serif-medium"
+        android:gravity="center"
+        android:text="Login"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textSize="30sp" />
+
+
+    <EditText
+        android:id="@+id/email"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/btn"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="Email"
+        android:elevation="5dp"
+        android:inputType="textEmailAddress" />
+
+    <EditText
+        android:id="@+id/password"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/btn"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="Password"
+        android:elevation="5dp"
+        android:inputType="textPassword" />
+
+    <Button
+        android:id="@+id/login_submit"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/register_submit"
+        android:elevation="5dp"
+        android:gravity="center"
+        android:onClick="checkUser"
+        android:text="Submit"
+        android:textColor="@color/white" />
+</LinearLayout>

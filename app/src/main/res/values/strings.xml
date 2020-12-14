@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">DoNation</string>
+    <string name="title_activity_user_homepage">user_homepage</string>
+    <string name="tab_text_1">FEED</string>
+    <string name="tab_text_2">SEARCH</string>
+    <string name="tab_text_3">REQUESTS</string>
+    <string name="tab_text_4">ACCOUNT</string>
+    <string name="create">CREATE</string>
+    <string-array name="ngo_requirement_type_array">
+        <item>Choose Requirement Type</item>
+        <item>Donation</item>
+        <item>Volunteer</item>
+    </string-array>
+
+    <string name="title_activity_n_g_o_homepage">NGO_homepage</string>
+    <string name="twitterUsername">\@joeytribbiani</string>
+</resources>

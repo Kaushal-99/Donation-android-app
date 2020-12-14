@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#6200EE</color>
+    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorAccent">#03DAC5</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#353232</color>
+    <color name="light_white">#F5F5F3</color>
+    <color name="blues">#0472F2</color>
+    <color name="request_background">#EDF0FDFA</color>
+    <color name="link_color">#1C34B6</color>
+
+
+    <color name="address">#2F7092</color>
+    <color name="followers">#0D5D98</color>
+    <color name="headings">#3797CF</color>
+    <color name="solidCircle">#AAFFFFFF</color>
+    <color name="circleBorder">#50FFFFFF</color>
+    <color name="cardBorder">#50101010</color>
+    <color name="gradEnd">#3F51B5</color>
+    <color name="gradStart">#071C85</color>
+    <color name="followersBg">#65DCE5</color>
+    <color name="followingBg">#49BEFF</color>
+    <color name="grey">#E5E5E5</color>
+
+    <color name="colorIcons">#FFFFFF</color>
+    <color name="colorDivider">#BDBDBD</color>
+    <color name="black_effective">#2a2a2a</color>
+
+
+</resources>

@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/phone"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:backgroundTint="@android:color/holo_green_dark"
+    tools:context=".Account_NGO">
+
+    <RelativeLayout
+        android:id="@+id/rellay1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/blues"
+        android:paddingBottom="20dp">
+
+        <RelativeLayout
+            android:id="@+id/imgUser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp">
+
+            <ImageView
+                android:id="@+id/userPhoto"
+                android:layout_width="300dp"
+                android:layout_height="180dp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="86dp"
+                android:adjustViewBounds="true"
+                android:background="@android:color/holo_blue_dark"
+                android:padding="3dp"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/ngo" />
+
+            <RelativeLayout
+
+                android:layout_width="60dp"
+                android:layout_height="50dp"
+                android:layout_above="@+id/name"
+                android:layout_alignEnd="@+id/userPhoto"
+                android:layout_marginTop="120dp"
+                android:background="@drawable/circle">
+
+                <Button
+                    android:id="@+id/cameraButton"
+                    android:layout_width="57dp"
+                    android:layout_height="53dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginEnd="1dp"
+                    android:background="@android:drawable/ic_menu_camera"
+                    android:backgroundTint="@android:color/background_dark"
+                    android:shadowColor="#040303" />
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/imgUser"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="18dp"
+            android:elevation="2dp"
+            android:fontFamily="@font/baloo_bhai"
+            android:text="Piyush Jha"
+            android:textColor="@color/white"
+            android:textSize="36sp" />
+
+
+    </RelativeLayout>
+
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="490dp"
+        android:layout_below="@+id/rellay1"
+        android:layout_marginTop="0dp">
+
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="-5dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="455dp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginStart="30dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginBottom="32dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="0dp"
+                        android:elevation="2dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/baloo_bhai"
+                            android:text="Email"
+                            android:textColor="@color/headings"
+                            android:textSize="20sp" />
+
+                        <TextView
+                            android:id="@+id/email"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/patua_one"
+                            android:text="joey@sharenofood.com"
+                            android:textColor="#000000"
+                            android:textSize="24sp" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="15dp"
+                            android:background="@color/grey" />
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/baloo_bhai"
+                        android:text="Phone"
+                        android:textColor="@color/headings"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:id="@+id/phonenumber"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/patua_one"
+                        android:text="+1-202-555-0157"
+                        android:textColor="#000000"
+                        android:textSize="18sp"
+                        tools:ignore="DuplicateIds" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/baloo_bhai"
+                        android:text="About"
+                        android:textColor="@color/headings"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:id="@+id/about_Us"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/open_sans_semibold_italic"
+                        android:textColor="#000000"
+                        android:textSize="18sp"
+                        tools:ignore="DuplicateIds" />
+
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/baloo_bhai"
+                        android:text="Address"
+                        android:textColor="@color/headings"
+                        android:textSize="20sp" />
+
+                    <EditText
+                        android:id="@+id/userAddress"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/patua_one"
+
+                        android:textColor="#000000"
+                        android:textSize="18sp" />
+
+
+                    <Switch
+                        android:id="@+id/locationSwitchId"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="72dp"
+                        android:layout_marginRight="72dp"
+                        android:checked="false"
+                        android:fontFamily="@font/sree_krushnadevaraya"
+                        android:text="Use Current Location"
+                        tools:checked="false"
+                        tools:ignore="UseSwitchCompatOrMaterialXml" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="15dp"
+                        android:background="@color/grey" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:elevation="2dp"
+                    android:orientation="vertical">
+
+                    <Button
+                        android:id="@+id/updateButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/blues"
+                        android:fontFamily="@font/baloo_bhai"
+                        android:text="Update "
+                        android:textColor="#FFFFFF" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:elevation="2dp"
+                    android:orientation="vertical">
+
+                    <Button
+                        android:id="@+id/yourPostButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/blues"
+                        android:fontFamily="@font/baloo_bhai"
+                        android:text="Your Post "
+                        android:textColor="#FFFFFF" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:elevation="2dp"
+                    android:orientation="vertical">
+
+                    <Button
+                        android:id="@+id/logoutButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/blues"
+                        android:fontFamily="@font/baloo_bhai"
+                        android:text="Logout "
+                        android:textColor="#FFFFFF" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+        </ScrollView>
+
+    </ScrollView>
+
+</RelativeLayout>

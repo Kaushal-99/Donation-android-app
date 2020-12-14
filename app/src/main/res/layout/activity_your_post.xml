@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.navigation.NavigationView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    tools:context=".yourPost">
+
+    <RelativeLayout
+        android:id="@+id/navBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:backgroundTint="#42198C">
+
+        <ImageButton
+            android:id="@+id/back"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="left"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/abc_vector_test"
+            android:onClick="goBack" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="185dp"
+            android:fontFamily="@font/patua_one"
+            android:text="Your Post"
+            android:textColor="@color/design_default_color_background"
+            android:textSize="30sp" />
+
+    </RelativeLayout>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/requests"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/navBar"
+        android:layout_marginTop="60dp"
+        android:background="@color/design_default_color_background" />
+
+
+</com.google.android.material.navigation.NavigationView>

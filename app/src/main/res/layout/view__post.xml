@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_marginTop="10dp"
+    android:background="@color/white"
+    tools:context=".View_Post">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageButton
+            android:id="@+id/back"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="left"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/ic_baseline_arrow_back_24"
+            android:onClick="goBack" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/ngo_name"
+            android:text="Hiiiii"
+            android:textSize="25sp"
+            android:layout_marginLeft="10dp"
+            android:textColor="@color/black"
+            android:layout_below="@+id/back"
+            android:layout_marginTop="10dp" />
+
+
+        <ImageView
+            android:id="@+id/post_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            tools:srcCompat="@tools:sample/avatars"
+            android:layout_below="@+id/ngo_name"
+            android:layout_centerInParent="true"
+            />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/post_image"
+            android:id="@+id/title"
+            android:text="title of donation"
+            android:textColor="@color/black"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="5dp"
+
+            android:textSize="20sp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/title"
+            android:id="@+id/requirement_type"
+            android:layout_marginRight="10dp"
+            android:text="Requirements"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:textColor="@color/black"
+            android:textSize="18sp"/>
+
+
+    </RelativeLayout>
+</LinearLayout>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="preloaded_fonts" translatable="false">
+        <item>@font/alfa_slab_one</item>
+        <item>@font/alike_angular</item>
+        <item>@font/archivo_black</item>
+        <item>@font/baloo_bhai</item>
+        <item>@font/cormorant_italic</item>
+        <item>@font/luckiest_guy</item>
+        <item>@font/open_sans_light</item>
+        <item>@font/open_sans_semibold_italic</item>
+        <item>@font/patua_one</item>
+        <item>@font/sree_krushnadevaraya</item>
+    </array>
+</resources>

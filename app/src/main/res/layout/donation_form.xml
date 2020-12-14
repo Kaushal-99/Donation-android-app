@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".DonationForm"
+    android:orientation="vertical">
+
+    <ImageButton
+        android:id="@+id/back"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_gravity="left"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/ic_baseline_arrow_back_24"
+        android:onClick="goBack" />
+    <TextView
+        android:id="@+id/NGO_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="20dp"
+        android:text=""
+        android:textColor="@color/black"
+        android:textSize="25sp" />
+
+    <EditText
+        android:id="@+id/subject"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginLeft="30dp"
+        android:elevation="5dp"
+        android:ems="10"
+        android:paddingLeft="10dp"
+        android:hint="Subject of Request"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/items_donated"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="30dp"
+        android:elevation="5dp"
+        android:ems="10"
+        android:hint="Items to be Donated"
+        android:inputType="text|textMultiLine"
+        android:paddingLeft="10dp" />
+
+    <Button
+        android:id="@+id/donation_request_submit_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="30dp"
+        android:background="@color/blues"
+        android:onClick="generateDonationRequest"
+        android:text="Submit"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
+
+</LinearLayout>
